@@ -31,6 +31,10 @@ def create_app(test_config=None):
     db.init_app(app)
     app.cli.add_command(init_db_command)
 
+    from app import views
+
+    app.register_blueprint(views.bp)
+
     return app
 
 

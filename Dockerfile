@@ -26,7 +26,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Create a non-root user and the directory for the SQLite database.
 RUN groupadd --system app && useradd --system --gid app --home /app app \
-    && mkdir -p /data \
+    && mkdir -p /app /data \
     && chown app:app /data /app
 
 WORKDIR /app

@@ -1,0 +1,14 @@
+.git
+.gitignore
+.pytest_cache
+.vscode
+__pycache__
+*.pyc
+env1
+instance
+tests
+unit.xml
+project.md
+README.md
+Dockerfile
+.dockerignore

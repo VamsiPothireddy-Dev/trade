@@ -104,7 +104,7 @@ jobs:
               --set "istio.host=$ISTIO_HOST" \
               --set "istio.gateway=istio-system/ingressgateway" \
               -s "templates/$tpl" \
-              > "infra/$APP_DIR/manifests/${tpl%.yml}.yaml"
+              > "infra/$APP_DIR/manifests/${tpl%.*}.yaml"
           done
           grep -n 'image:' "infra/$APP_DIR/manifests/deployment.yaml"
 

@@ -24,7 +24,7 @@ def trade_to_json(trade):
 @bp.get("/health")
 def health():
     db.session.execute(text("SELECT 1"))
-    return jsonify({"status": "ok"})
+    return jsonify({"status": "ok good"})
 
 
 @bp.get("/version")

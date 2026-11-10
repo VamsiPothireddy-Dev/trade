@@ -1,3 +1,5 @@
+import os
+
 from flask import Blueprint, abort, jsonify, request
 from sqlalchemy import text
 
@@ -23,6 +25,11 @@ def trade_to_json(trade):
 def health():
     db.session.execute(text("SELECT 1"))
     return jsonify({"status": "ok"})
+
+
+@bp.get("/version")
+def version():
+    return jsonify({"version": os.environ.get("IMAGE_TAG", "unknown")})
 
 
 @bp.post("/trades")

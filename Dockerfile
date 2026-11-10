@@ -13,15 +13,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.lock ./
-RUN pip install --prefix=/install -r requirements.lock \
-    && pip install --prefix=/install gunicorn==23.0.0
+RUN python -m venv /opt/venv \
+    && /opt/venv/bin/pip install -r requirements.lock \
+    && /opt/venv/bin/pip install gunicorn==23.0.0
 
 
 FROM python:3.12-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH="/app/venv/bin:$PATH" \
+    PATH="/opt/venv/bin:$PATH" \
     DATABASE_URL="sqlite:////data/db.sqlite3"
 
 # Create a non-root user and the directory for the SQLite database.
@@ -32,7 +33,7 @@ RUN groupadd --system app && useradd --system --gid app --home /app app \
 WORKDIR /app
 
 # Copy only the installed dependencies and application code.
-COPY --from=builder /install /app/venv
+COPY --from=builder /opt/venv /opt/venv
 COPY --chown=app:app app ./app
 
 USER app

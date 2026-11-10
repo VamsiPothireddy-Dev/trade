@@ -16,5 +16,6 @@ jobs:
       service-port: 8000
       target-port: 8000
       istio-host: api.vamsipothireddy.com
+      istio-path-prefix: /trade
       namespace: default
     secrets: inherit
